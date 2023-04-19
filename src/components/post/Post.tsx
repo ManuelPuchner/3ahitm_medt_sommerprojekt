@@ -19,18 +19,22 @@ function Post({post}: PostProps) {
 
   return (
     <div className="">
-      <div className="top shadow-lg">
-        <img src={post.image} alt="" />
+      <div className="top shadow-2xl">
+        <img src={post.image} alt="" className=""/>
       </div>
-      <div className="bottom mt-6 shadow-xl py-4 px-6">
+      <div className="bottom mt-6 shadow-xl py-4 px-6 bg-white">
         <div className="user-and-likes flex justify-between">
           <div className="user">@{post.user}</div>
-          <Likes handleLike={handleLike} isLiked={isLiked} numberOfLikes={post.likes.length} />
+          <Likes
+            handleLike={handleLike}
+            isLiked={isLiked}
+            numberOfLikes={post.likes.length}
+          />
         </div>
         <div className="mb-4 ml-1">
           <span className="text">{post.description}</span>
         </div>
-        <Comments comments={post.comments}/>
+        <Comments comments={post.comments} />
       </div>
     </div>
   );

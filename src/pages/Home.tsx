@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideBar from "../components/sidebar/SideBar";
 import { useState } from "react";
 import Post from "../components/post/Post";
+import PostType from "../types/post";
 
-import examplePosts from "../exampleData/post/posts";
 
 function Home() {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -11,15 +11,32 @@ function Home() {
     setSidebarOpen(!sidebarOpen);
   };
 
+  const [posts, setPosts] = useState<PostType[]>([] as PostType[]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await fetch(
+        `/api/post/index.php`
+      );
+
+      const data = await response.text();
+      console.log(data);
+      
+      // setPosts(data.data);
+    };
+
+    fetchPosts();
+  }, []);
+
   return (
     <div className="relative">
       <SideBar toggleFunc={toggleSidebar} isOpen={sidebarOpen}>
         {}
       </SideBar>
       <main className={`transition-all ${sidebarOpen && "ml-[25%]"}`}>
-        <h1>Home</h1>
         <PostSlider>
-          {examplePosts.map((post, index) => (
+          <div className="h-20"></div>
+          {posts && posts.map((post, index) => (
             <>
               <Post key={index} post={post} />
               <div className="spacer h-10"></div>
@@ -37,7 +54,7 @@ type PostSliderProps = {
 
 function PostSlider({ children }: PostSliderProps) {
   return (
-    <div className="w-1/2 mx-auto">
+    <div className="w-2/3 px-10 mx-auto max-h-[calc(100vh - (24 * 4px))] overflow-hidden">
       {children}
     </div>
   );

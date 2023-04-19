@@ -1,12 +1,11 @@
-import CommentType from "./comment";
-import LikeType from "./like";
+
 
 interface PostType {
-  user: string;
-  description: string;
+  id: number;
   image: string;
-  likes: LikeType[];
-  comments: CommentType[];
-}
+  description: string;
+  date: string;
+  userId: number;
+};
 
 export default PostType;

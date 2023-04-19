@@ -7,11 +7,12 @@ type Props = {
 
 function Layout({ children }: Props) {
   return (
-    <div className='layout min-h-screen'>
+    <div className="layout min-h-screen">
       <Header />
+      <div className="h-24"></div>
       {children}
     </div>
-  )
+  );
 }
 
 export default Layout

@@ -3,7 +3,7 @@ import Nav from './Nav'
 
 function Header() {
   return (
-    <header className='flex justify-between px-6 items-center h-24 shadow-lg'>
+    <header className='fixed z-50 w-full flex justify-between px-6 items-center h-24 shadow-lg'>
       <div>Logo</div>
 
       <Nav />

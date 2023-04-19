@@ -9,6 +9,9 @@ module.exports = {
         "primary-orange": "#F39200",
         "primary-red": "#BE1622",
       },
+      borderWidth:{
+        "1": "1px",
+      }
     },
   },
   plugins: [],

@@ -29,7 +29,7 @@ $ npm/pnpm run start
 - siehe [Projekt Design](https://www.figma.com/file/UnrTOWjqfkQk0GAHZzi5MK/Untitled?node-id=0%3A1&t=XJKaocIF73KvNxVv-1)
 
 ### Sprint 3 **(Frontend)**
-- Erstellung des GITHUB-Repositories
+- Erstellung des GitHub-Repositories
 - aufsetzen des Frontends
 - Programmierung des Frontends
   - Erstellung der Types
