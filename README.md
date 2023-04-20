@@ -38,3 +38,26 @@ $ npm/pnpm run start
     - Post
     - Sidebar
   - Implementierung des State-Managers
+
+### Sprint 4 **(Backend/Datenbank)**
+- aufsetzen des Backends
+- Erstellung der Create-Scripts
+- Erstellung der PHP-Klassen für die Datenbank
+  - DB.php
+    - Anbindung an die Datenbank
+    - (singleton pattern)
+  - User.php
+  - Like.php
+  - Comment.php
+  - Post.php
+  - die Klassen nutzen statische Methoden, um die Datenbank abzufragen
+- Response.php
+  - um HTTP-Responses zu verschicken
+- verschiedenste Endpoints
+- Authentication
+#### Was ist bereits möglich?
+- registrieren
+- einloggen
+- erstellen von Posts
+- anschauen von Profilen
+- anschauen von Posts
