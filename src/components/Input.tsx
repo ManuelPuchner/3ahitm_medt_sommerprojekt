@@ -8,9 +8,10 @@ type InputProps = {
   id: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
+  [key: string]: any;
 };
 
-function Input({ label, placeholder, type, name, id, onChange, disabled}: InputProps) {
+function Input({ label, placeholder, type, name, id, onChange, disabled, ...other}: InputProps) {
   return (
     <div className="flex flex-wrap mb-3">
       <label htmlFor="name" className="w-full">
@@ -24,6 +25,7 @@ function Input({ label, placeholder, type, name, id, onChange, disabled}: InputP
         placeholder={placeholder}
         onChange={onChange}
         disabled={disabled}
+        {...other}
       />
     </div>
   );

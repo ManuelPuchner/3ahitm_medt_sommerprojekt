@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import HowTo from "./pages/HowTo";
 import Wichtig from "./pages/Wichtig";
+import Account from "./pages/Account";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -22,6 +23,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             <Route path="login" element={<Login />} />
             <Route path="howto" element={<HowTo />} />
             <Route path="wichtig" element={<Wichtig />} />
+            <Route path="account" element={<Account />} />
+            <Route path="account/:name" element={<Account />} />
           </Routes>
         </Layout>
       </CookiesProvider>

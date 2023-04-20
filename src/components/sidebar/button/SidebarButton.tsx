@@ -11,7 +11,7 @@ type SidebarButtonProps = {
 function SidebarButton({ text, icon, onClick, iconStyle }: SidebarButtonProps) {
   return (
     <button
-      className="px-4 py-3 relative border-gray-200 border-1 w-full shadow-sm hover:shadow-md hover:-translate-y-1 transition"
+      className="mb-2 px-4 py-3 relative border-gray-200 border-1 w-full shadow-sm hover:shadow-md hover:-translate-y-1 transition"
       onClick={onClick}
     >
       {icon && (

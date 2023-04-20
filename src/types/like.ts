@@ -1,5 +1,7 @@
 interface LikeType {
-  user: string;
+  id: number;
+  userId: number;
+  postId: number;
 }
 
 export default LikeType;
