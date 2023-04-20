@@ -12,6 +12,8 @@ import Login from "./pages/Login";
 import HowTo from "./pages/HowTo";
 import Wichtig from "./pages/Wichtig";
 import Account from "./pages/Account";
+import LikedPosts from "./pages/LikedPosts";
+import Post from "./pages/Post";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -23,8 +25,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             <Route path="login" element={<Login />} />
             <Route path="howto" element={<HowTo />} />
             <Route path="wichtig" element={<Wichtig />} />
-            <Route path="account" element={<Account />} />
-            <Route path="account/:name" element={<Account />} />
+            <Route path="account/me" element={<Account />} />
+            <Route path="account/name/:name" element={<Account />} />
+            <Route path="account/me/liked-posts" element={<LikedPosts />} />
+            <Route path="post/:postId" element={<Post />} />
           </Routes>
         </Layout>
       </CookiesProvider>

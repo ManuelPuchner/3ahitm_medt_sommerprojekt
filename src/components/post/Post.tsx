@@ -7,6 +7,7 @@ import { Menu, Transition } from "@headlessui/react";
 
 import { AiOutlineDelete } from "react-icons/ai";
 import { SlOptions } from "react-icons/sl";
+import { Link } from "react-router-dom";
 
 type PostProps = {
   post: PostType;
@@ -101,7 +102,9 @@ function Post({ post, refreshPosts }: PostProps) {
       </div>
       <div className="bottom mt-6 shadow-xl py-4 px-6 bg-white">
         <div className="user-and-likes flex justify-between">
-          <div className="user">@{post.user && post.user.name}</div>
+          <Link to={`/account/name/${post.user?.name}`} className="hover:underline">
+            <div className="user">@{post.user && post.user.name}</div>
+          </Link>
           <Likes
             handleLike={handleLike}
             isLiked={isLiked}

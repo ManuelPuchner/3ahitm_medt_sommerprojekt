@@ -5,6 +5,8 @@
     private string $password;
     private string $userType; */
 
+import PostType from "./post";
+
 type UserType = {
   id: number;
   name: string;
@@ -13,6 +15,7 @@ type UserType = {
   userType: string;
 
   postCount?: number;
+  posts?: PostType[];
 };
 
 export default UserType;
