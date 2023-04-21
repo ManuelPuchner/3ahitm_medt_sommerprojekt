@@ -76,6 +76,18 @@ function Post({ post, refreshPosts }: PostProps) {
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className="absolute right-0 top-0 mt-12 mr-4 bg-white shadow-lg rounded-md py-1">
+            <Menu.Item>
+              {({ active }) => (
+                <Link
+                  to={`/post/${post.id}`}
+                  className={`${
+                    active ? "bg-gray-100" : ""
+                  } block px-4 py-2 text-sm text-gray-700 group`}
+                >
+                  View Post
+                </Link>
+              )}
+            </Menu.Item>
             {post.isPostedByUser && (
               <>
                 <Menu.Item>
@@ -114,7 +126,7 @@ function Post({ post, refreshPosts }: PostProps) {
         <div className="mb-4 ml-1">
           <span className="text">{post.description}</span>
         </div>
-        <Comments comments={post.comments || []} />
+        <Comments comments={post.comments || []} post={post} />
       </div>
     </div>
   );

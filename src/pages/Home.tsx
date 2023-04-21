@@ -23,7 +23,7 @@ function Home() {
   const { logout, isLoggedIn } = useAuth();
 
   const refreshPosts = async () => {
-    const include = ["likeCount", "user", "isLikedByUser", "isPostedByUser"];
+    const include = ["likeCount", "user", "isLikedByUser", "isPostedByUser", "comments"];
     const params = new URLSearchParams();
     params.append("include", include.join(","));
 

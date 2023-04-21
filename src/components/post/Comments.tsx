@@ -1,31 +1,67 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import CommentType from "../../types/comment";
+import PostType from "../../types/post";
+
+import { BiCommentDetail, BiCommentAdd } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import UserType from "../../types/user";
 
 type CommentsProps = {
-  comments: CommentType[]
-}
-export function Comments({ comments }: CommentsProps) {
+  comments: CommentType[];
+  post: PostType;
+};
+export function Comments({ comments, post }: CommentsProps) {
   return (
     <div className="comments-wrapper opacity-90">
-      <span className="">{comments.length} Kommentare</span>
+      <div className="flex justify-between items-center">
+        <span className="">{comments.length} Kommentare</span>
+        <Link
+          to={`/post/${post.id}?comment=true`}
+          className="
+          flex items-center
+          px-3
+          py-2
+          hover:bg-gray-200
+          rounded-lg
+          transition
+        "
+        >
+          {comments.length === 0 && (
+            <BiCommentAdd className="inline-block text-2xl" />
+          )}
+        </Link>
+      </div>
       <div className="comments opacity-80 ml-1">
-        {comments.map((comment, index) => (
-          <PostComment key={index} user={comment.user} text={comment.text} />
+        {comments.slice(0, 3).map((comment, index) => (
+          <PostComment key={index} comment={comment} />
         ))}
+
+        {comments.length > 3 && (
+          <Link
+            to={`/post/${post.id}`}
+            className="
+            block
+            text-sm
+            text-black
+            hover:underline
+          "
+          >
+            View all {comments.length} comments
+          </Link>
+        )}
       </div>
     </div>
   );
 }
 type PostCommentProps = {
-  user: string;
-  text: string;
+  comment: CommentType;
 };
-function PostComment({ user, text }: PostCommentProps) {
+function PostComment({ comment }: PostCommentProps) {
   return (
     <div className="comment">
-      <span className="user">@{user}</span>
+      <span className="user">@{comment.user?.name}</span>
       {": "}
-      <span className="text">{text}</span>
+      <span className="text">{comment.text}</span>
     </div>
   );
 }
