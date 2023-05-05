@@ -35,13 +35,14 @@ export function Comments({ comments, post }: CommentsProps) {
         {comments.slice(0, 3).map((comment, index) => (
           <PostComment key={index} comment={comment} />
         ))}
-
-        {comments.length > 3 && (
+        {comments.length > 0 && (
           <Link
-            to={`/post/${post.id}`}
+            to={`/post/${post.id}?comment=true`}
             className="
             block
-            text-sm
+            text-md
+            text-center
+            mt-2
             text-black
             hover:underline
           "

@@ -13,11 +13,45 @@ function Post() {
 
   const commentsRef = useRef<HTMLDivElement>(null);
 
-  const [createComment, setCreateComment] = useState<boolean>(false);
-
   const [comments, setComments] = useState<CommentType[]>([]);
 
   const createCommentFormRef = useRef<HTMLFormElement>(null);
+
+  const getFormattedDate = (date: string) => {
+    const dateObj = new Date(date);
+    
+    
+    if (new Date().getTime() - dateObj.getTime() < 1000 * 60 * 60 * 24 * 7) {
+      const seconds = Math.floor(
+        (new Date().getTime() - dateObj.getTime()) / 1000
+      );
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+
+      
+      if (seconds < 60) {
+        return "just now";
+      } else if (minutes < 60) {
+        return `vor ${minutes}m`;
+      } else if (hours < 24) {
+        return `vor ${hours}h`;
+      } else if (days < 7) {
+        return `vor ${days}d`;
+      }
+    }
+
+    
+
+    // else return date
+    return dateObj.toLocaleDateString("de-DE", {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+
+  }
 
   const getPost = async () => {
     if (postId === undefined) {
@@ -65,7 +99,7 @@ function Post() {
       post.comments = [];
     }
 
-    setComments([data.data, ...comments]);
+    setComments([data.data, ...comments]);    
 
     createCommentFormRef.current?.reset();
   };
@@ -76,10 +110,10 @@ function Post() {
       new URLSearchParams(window.location.search).get("comment") === "true";
 
     if (createComment) {
-      setCreateComment(true);
       commentsRef.current?.scrollIntoView();
       commentsRef.current?.focus();
     }
+
   }, []);
 
   if (post === undefined) {
@@ -172,30 +206,32 @@ function Post() {
               "
             />
           </form>
-          
+
           {comments.map((comment) => (
-            <div className="mt-4
+            <div
+              className="mt-4
             text-2xl
             font-bold
-            bg-slate-200
             bg-opacity-50
             px-4
             py-3
             shadow-xl
-            `">
+            border
+            border-gray-100
+            `"
+            >
               <div className="text-lg">{comment.text}</div>
               <div className="text-sm text-gray-500">
                 @{comment.user?.name}
-
                 <span className="mx-2">•</span>
-
-                {new Date(comment.date).toLocaleString()}
-
+                {getFormattedDate(comment.date)}
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      <pre>{JSON.stringify(post, null, 2)}</pre>
     </div>
   );
 }

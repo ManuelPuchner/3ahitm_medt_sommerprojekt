@@ -114,7 +114,10 @@ function Post({ post, refreshPosts }: PostProps) {
       </div>
       <div className="bottom mt-6 shadow-xl py-4 px-6 bg-white">
         <div className="user-and-likes flex justify-between">
-          <Link to={`/account/name/${post.user?.name}`} className="hover:underline">
+          <Link
+            to={`/account/name/${encodeURIComponent(post.user?.name || "")}`}
+            className="hover:underline"
+          >
             <div className="user">@{post.user && post.user.name}</div>
           </Link>
           <Likes

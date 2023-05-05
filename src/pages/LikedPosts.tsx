@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PostType from "../types/post";
 
+import { BsChevronRight } from "react-icons/bs";
+import { Link } from "react-router-dom";
+
 function LikedPosts() {
   const [posts, setPosts] = useState<PostType[]>([]);
 
@@ -29,15 +32,46 @@ function LikedPosts() {
       {posts.map((post) => (
         <div
           key={post.id}
-          className=" 
-        border border-gray-300 rounded-md p-4 mb-4 shadow-md
-          w-full
-        "
+          className="
+            p-4 mb-4 shadow-md
+            w-full
+            relative
+          "
         >
-          <div className="flex justify-between">
-            <img src={post.image} alt="" />
-            <p>{post.description}</p>
-            <p>@{post.user?.name}</p>
+          <div className="flex gap-8">
+            <img
+              src={post.image}
+              alt=""
+              className="
+                h-52
+              "
+            />
+            <div>
+              <h2
+                className="
+                  text-xl font-bold
+                  mb-2
+                "
+              >
+                @{post.user?.name}
+              </h2>
+              <p
+                className="
+                  text-lg
+                "
+              >
+                {post.description}
+              </p>
+            </div>
+            <div>
+              <Link
+                to={`/post/${post.id}`}
+                className="absolute right-6 top-1/2 -translate-y-1/2
+                hover:text-blue-700 hover:shadow-md p-2 rounded-full transition"
+              >
+                <BsChevronRight className="text-4xl ml-1" />
+              </Link>
+            </div>
           </div>
         </div>
       ))}

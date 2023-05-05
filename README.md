@@ -55,6 +55,10 @@ $ npm/pnpm run start
   - um HTTP-Responses zu verschicken
 - verschiedenste Endpoints
 - Authentication
+
+### Sprint 5 **(Progress)**
+- Liken von Posts
+- Kommentieren von Posts
 #### Was ist bereits möglich?
 - registrieren
 - einloggen
