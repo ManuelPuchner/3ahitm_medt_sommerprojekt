@@ -65,3 +65,9 @@ $ npm/pnpm run start
 - erstellen von Posts
 - anschauen von Profilen
 - anschauen von Posts
+
+### Sprint 6 **(Progress)**
+- Image upload
+- Umstellung auf neue Api
+  - siehe [hier](https://github.com/ManuelPuchner/medt_sommerprojekt_backend_new/tree/main/)
+  - Framework: [BetterPHP](https://github.com/ManuelPuchner/BetterPHP) (Selbst geschrieben)
