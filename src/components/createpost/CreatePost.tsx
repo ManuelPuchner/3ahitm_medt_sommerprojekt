@@ -11,15 +11,25 @@ type CreatePostProps = {
 
 function CreatePost({ open, setOpen, refresh, onClose }: CreatePostProps) {
   const formRef = React.useRef<HTMLFormElement>(null);
+  const [uploadedImagePath, setUploadedImagePath] = React.useState<string|null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const formData = new FormData(form);
+    const formData = new FormData();
+    if(uploadedImagePath === null || uploadedImagePath === "") {
+      return;
+    }
 
-    const response = await fetch("/api/post/create.php", {
+    formData.append("image", uploadedImagePath);
+    formData.append("description", form.description.value);
+
+    const response = await fetch("/api/post/", {
       method: "POST",
-      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(Object.fromEntries(formData)),
     });
 
     const data = await response.json();
@@ -32,6 +42,28 @@ function CreatePost({ open, setOpen, refresh, onClose }: CreatePostProps) {
       refresh();
     }
   };
+
+  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+
+    if(e.target.files === null || e.target.files.length === 0) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("fileToUpload", e.target.files[0]);
+
+    const res = await fetch("/api/image/", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if(data.success) {
+      setUploadedImagePath(data.data);
+    }
+    
+  }
 
   const close = () => {
     formRef.current?.reset();
@@ -59,10 +91,12 @@ function CreatePost({ open, setOpen, refresh, onClose }: CreatePostProps) {
             <Input
               label="Image"
               placeholder="Enter image url"
-              type="text"
+              type="file"
               name="image"
               id="image"
-              maxLength={255}
+              accept="image/*"
+              onChange={uploadImage}
+              className={uploadedImagePath === null || uploadedImagePath === "" ? 'border border-red-500' : 'border border-gray-100'}
             />
 
             <div className="spacer h-2 w-full"></div>

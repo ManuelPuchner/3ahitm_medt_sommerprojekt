@@ -18,14 +18,20 @@ export function useAuth() {
   }, [cookies.PHPSESSID]);
 
   const login = async (email: string, password: string) => {
-    const formdata = new FormData();
-    formdata.append("email", email);
-    formdata.append("password", password);
+    const postData = {
+      email: email,
+      password: password,
+    }
 
-    const response = await fetch(`/api/auth/login.php`, {
+    const response = await fetch(`/api/auth/login/`, {
       method: "POST",
-      body: formdata,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
     });
+
+    console.log(response);
 
     const data = await response.json();
 
@@ -37,14 +43,18 @@ export function useAuth() {
   };
 
   const signUp = async (name: string, email: string, password: string) => {
-    const formdata = new FormData();
-    formdata.append("name", name);
-    formdata.append("email", email);
-    formdata.append("password", password);
+    const postData = {
+      username: name,
+      email: email,
+      password: password,
+    }
 
-    const response = await fetch(`/api/auth/register.php`, {
+    const response = await fetch(`/api/auth/register/`, {
       method: "POST",
-      body: formdata,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
     });
 
     const data = await response.json();

@@ -37,12 +37,12 @@ function Home() {
 
   const refreshPosts = async () => {
     const params = new URLSearchParams();
-    params.append("include", include.join(","));
+    //params.append("include", include.join(","));
     params.append("page", "1");
     params.append("length", "10");
 
     const response = await fetch(
-      `/api/post/index.php${
+      `/api/post/${
         params.toString().length > 0 ? `?${params.toString()}` : ""
       }`
     );
@@ -59,7 +59,7 @@ function Home() {
 
   const loadMorePosts = async () => {
     const params = new URLSearchParams();
-    params.append("include", include.join(","));
+    //params.append("include", include.join(","));
     params.append("page", String(currentPage + 1));
     params.append("length", "10");
 

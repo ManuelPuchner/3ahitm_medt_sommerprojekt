@@ -58,13 +58,8 @@ function Post() {
       return;
     }
 
-    const searchParams = new URLSearchParams();
-    searchParams.append("by", "id");
-    searchParams.append("id", postId);
-    searchParams.append("include", "user,comments");
-
     const response = await fetch(
-      "/api/post/getBy.php?" + searchParams.toString()
+      `/api/post/${postId}`
     );
     const data = await response.json();
 
@@ -84,9 +79,14 @@ function Post() {
     const formData = new FormData(createCommentFormRef.current);
     formData.append("postId", String(post.id));
 
-    const response = await fetch("/api/comment/create.php", {
+    const postBody = Object.fromEntries(formData);
+
+    const response = await fetch("/api/comment/", {
       method: "POST",
-      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postBody),
     });
 
     const data = await response.json();
@@ -172,8 +172,8 @@ function Post() {
           >
             <input
               type="text"
-              name="comment"
-              id="comment"
+              name="comment_text"
+              id="comment_text"
               placeholder="Add a comment..."
               className="
                 w-full
@@ -231,7 +231,7 @@ function Post() {
         </div>
       </div>
 
-      <pre>{JSON.stringify(post, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
     </div>
   );
 }
