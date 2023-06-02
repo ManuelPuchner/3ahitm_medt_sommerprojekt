@@ -128,29 +128,34 @@ function Home() {
       />
       <main className={`transition-all ${sidebarOpen && "ml-[25%]"}`}>
         {isLoggedIn && (
-          <PostSlider>
-            {posts &&
-              posts.map((post) => (
-                <React.Fragment key={post.id}>
-                  <div className="h-20"></div>
-                  <Post key={post.id} post={post} refreshPosts={refreshPosts} />
-                </React.Fragment>
-              ))}
-            <div className="h-24"></div>
-          </PostSlider>
-        )}
-
-        <div className="w-full flex justify-center">
-          <button
-            className="
+          <>
+            <PostSlider>
+              {posts &&
+                posts.map((post) => (
+                  <React.Fragment key={post.id}>
+                    <div className="h-20"></div>
+                    <Post
+                      key={post.id}
+                      post={post}
+                      refreshPosts={refreshPosts}
+                    />
+                  </React.Fragment>
+                ))}
+              <div className="h-24"></div>
+            </PostSlider>
+            <div className="w-full flex justify-center">
+              <button
+                className="
               px-4 py-2 m-4
               text-white bg-blue-500 rounded-md
             "
-            onClick={loadMorePosts}
-          >
-            Load More
-          </button>
-        </div>
+                onClick={loadMorePosts}
+              >
+                Load More
+              </button>
+            </div>
+          </>
+        )}
 
         <NoMorePostsModal
           isOpen={areMorePostsAvailable}

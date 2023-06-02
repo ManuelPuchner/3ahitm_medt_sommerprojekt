@@ -22,16 +22,17 @@ function Account() {
       setIsMe(true);
     } else {
       searchParams.append("by", "name");
-      searchParams.append("name", name);
+      searchParams.append("value", name);
       setIsMe(false);
     }
 
-    searchParams.append("include", "posts");
-
     const response = await fetch(
-      "/api/user/getBy.php?" + searchParams.toString()
+      "/api/user/getBy/?" + searchParams.toString()
     );
     const data = await response.json();
+
+    console.log(data);
+    
 
     if (data.success === false) {
       setIsNotFound(true);
