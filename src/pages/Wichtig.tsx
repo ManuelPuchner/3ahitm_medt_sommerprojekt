@@ -121,8 +121,7 @@ function ImportantPostCard({ post }: { post: PostType }) {
           <div className="flex justify-between">
             <p>@{post.user?.name}</p>
 
-            {/* @ts-ignore */}
-            <span>{getFormattedDate(post.date.date)}</span>
+            <span>{getFormattedDate(post.date)}</span>
           </div>
           <h5 className="card-description">{post.description}</h5>
         </div>

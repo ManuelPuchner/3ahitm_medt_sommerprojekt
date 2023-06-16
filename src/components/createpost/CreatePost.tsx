@@ -36,10 +36,11 @@ function CreatePost({ open, setOpen, refresh, onClose }: CreatePostProps) {
 
     formData.append("image", uploadedImagePath);
     formData.append("description", form.description.value);
-    formData.append("important", form.important.checked);
-    
-    // formData.append("important", form ? "true" : "false");
 
+    if(isTeacher) {
+      formData.append("important", form.important.checked);
+    }
+    
     const body = JSON.stringify(Object.fromEntries(formData));
 
     console.log(body);
