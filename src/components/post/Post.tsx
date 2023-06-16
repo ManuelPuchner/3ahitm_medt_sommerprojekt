@@ -19,12 +19,10 @@ function Post({ post, refreshPosts }: PostProps) {
   const [likeCount, setLikeCount] = useState(post.likeCount || 0);
 
   const handleLike = async () => {
-    const formdata = new FormData();
-    formdata.append("postId", post.id.toString());
+    const postId = post.id.toString();
 
-    const response = await fetch(`/api/post/like.php`, {
-      method: "POST",
-      body: formdata,
+    const response = await fetch(`/api/post/like/${postId}`, {
+      method: "PUT"
     });
 
     const data = await response.json();
@@ -39,13 +37,10 @@ function Post({ post, refreshPosts }: PostProps) {
 
 
   const handleDeletePost = async () => {
-    const params = new URLSearchParams();
-    params.append("id", post.id.toString());
+    const postId = post.id.toString();
 
     const response = await fetch(
-      `/api/post/delete.php${
-        params.toString().length > 0 ? `?${params.toString()}` : ""
-      }`,
+      `/api/post/${postId}`,
       {
         method: "DELETE",
       }

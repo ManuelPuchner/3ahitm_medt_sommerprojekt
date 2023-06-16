@@ -37,12 +37,12 @@ function Home() {
 
   const refreshPosts = async () => {
     const params = new URLSearchParams();
-    params.append("include", include.join(","));
+    //params.append("include", include.join(","));
     params.append("page", "1");
     params.append("length", "10");
 
     const response = await fetch(
-      `/api/post/index.php${
+      `/api/post/${
         params.toString().length > 0 ? `?${params.toString()}` : ""
       }`
     );
@@ -59,7 +59,7 @@ function Home() {
 
   const loadMorePosts = async () => {
     const params = new URLSearchParams();
-    params.append("include", include.join(","));
+    //params.append("include", include.join(","));
     params.append("page", String(currentPage + 1));
     params.append("length", "10");
 
@@ -128,29 +128,34 @@ function Home() {
       />
       <main className={`transition-all ${sidebarOpen && "ml-[25%]"}`}>
         {isLoggedIn && (
-          <PostSlider>
-            {posts &&
-              posts.map((post) => (
-                <React.Fragment key={post.id}>
-                  <div className="h-20"></div>
-                  <Post key={post.id} post={post} refreshPosts={refreshPosts} />
-                </React.Fragment>
-              ))}
-            <div className="h-24"></div>
-          </PostSlider>
-        )}
-
-        <div className="w-full flex justify-center">
-          <button
-            className="
+          <>
+            <PostSlider>
+              {posts &&
+                posts.map((post) => (
+                  <React.Fragment key={post.id}>
+                    <div className="h-20"></div>
+                    <Post
+                      key={post.id}
+                      post={post}
+                      refreshPosts={refreshPosts}
+                    />
+                  </React.Fragment>
+                ))}
+              <div className="h-24"></div>
+            </PostSlider>
+            <div className="w-full flex justify-center">
+              <button
+                className="
               px-4 py-2 m-4
               text-white bg-blue-500 rounded-md
             "
-            onClick={loadMorePosts}
-          >
-            Load More
-          </button>
-        </div>
+                onClick={loadMorePosts}
+              >
+                Load More
+              </button>
+            </div>
+          </>
+        )}
 
         <NoMorePostsModal
           isOpen={areMorePostsAvailable}

@@ -8,7 +8,7 @@ function LikedPosts() {
   const [posts, setPosts] = useState<PostType[]>([]);
 
   const refreshPosts = async () => {
-    const response = await fetch("/api/user/liked-posts.php");
+    const response = await fetch("/api/user/liked-posts/");
     const data = await response.json();
     setPosts(data.data);
 
