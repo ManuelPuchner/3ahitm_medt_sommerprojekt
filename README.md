@@ -71,3 +71,7 @@ $ npm/pnpm run start
 - Umstellung auf neue Api
   - siehe [hier](https://github.com/ManuelPuchner/medt_sommerprojekt_backend_new/tree/main/)
   - Framework: [BetterPHP](https://github.com/ManuelPuchner/BetterPHP) (Selbst geschrieben)
+
+### Sprinz 7 **(Endabgabe)**
+- Posten von Wichtigen Informationen
+  - Nur Lehrer können wichtige Informationen posten
