@@ -14,7 +14,7 @@ type InputProps = {
 
 function Input({ label, placeholder, type, name, id, onChange, disabled, className, ...other}: InputProps) {
   return (
-    <div className="flex flex-wrap mb-3">
+    <div className={`flex ${type !== 'checkbox' && 'flex-wrap'} mb-3`}>
       <label htmlFor="name" className="w-full">
         {label}
       </label>

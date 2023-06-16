@@ -1,6 +1,7 @@
 import React from "react";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import Input from "../Input";
+import { useAuth } from "../../hooks/OwnAuth";
 
 type CreatePostProps = {
   open: boolean;
@@ -11,25 +12,45 @@ type CreatePostProps = {
 
 function CreatePost({ open, setOpen, refresh, onClose }: CreatePostProps) {
   const formRef = React.useRef<HTMLFormElement>(null);
-  const [uploadedImagePath, setUploadedImagePath] = React.useState<string|null>(null);
+  const [uploadedImagePath, setUploadedImagePath] = React.useState<
+    string | null
+  >(null);
+  const { isTeacher: isTeacherMethod, isLoggedIn } = useAuth();
+  const [isTeacher, setIsTeacher] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      isTeacherMethod().then((res) => {
+        setIsTeacher(res);        
+      });
+    }
+  }, [isLoggedIn, isTeacherMethod]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData();
-    if(uploadedImagePath === null || uploadedImagePath === "") {
+    if (uploadedImagePath === null || uploadedImagePath === "") {
       return;
     }
 
     formData.append("image", uploadedImagePath);
     formData.append("description", form.description.value);
+    formData.append("important", form.important.checked);
+    
+    // formData.append("important", form ? "true" : "false");
+
+    const body = JSON.stringify(Object.fromEntries(formData));
+
+    console.log(body);
+    
 
     const response = await fetch("/api/post/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(Object.fromEntries(formData)),
+      body: body
     });
 
     const data = await response.json();
@@ -44,8 +65,7 @@ function CreatePost({ open, setOpen, refresh, onClose }: CreatePostProps) {
   };
 
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    if(e.target.files === null || e.target.files.length === 0) {
+    if (e.target.files === null || e.target.files.length === 0) {
       return;
     }
 
@@ -59,11 +79,10 @@ function CreatePost({ open, setOpen, refresh, onClose }: CreatePostProps) {
 
     const data = await res.json();
 
-    if(data.success) {
+    if (data.success) {
       setUploadedImagePath(data.data);
     }
-    
-  }
+  };
 
   const close = () => {
     formRef.current?.reset();
@@ -96,7 +115,11 @@ function CreatePost({ open, setOpen, refresh, onClose }: CreatePostProps) {
               id="image"
               accept="image/*"
               onChange={uploadImage}
-              className={uploadedImagePath === null || uploadedImagePath === "" ? 'border border-red-500' : 'border border-gray-100'}
+              className={
+                uploadedImagePath === null || uploadedImagePath === ""
+                  ? "border border-red-500"
+                  : "border border-gray-100"
+              }
             />
 
             <div className="spacer h-2 w-full"></div>
@@ -110,6 +133,15 @@ function CreatePost({ open, setOpen, refresh, onClose }: CreatePostProps) {
             />
 
             <div className="spacer h-2 w-full"></div>
+
+            {isTeacher && (
+              <Input
+                label="Important"
+                type="checkbox"
+                name="important"
+                id="important"
+              />
+            )}
 
             <div>
               <input
