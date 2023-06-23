@@ -56,4 +56,4 @@ EXPOSE 3000
 ENV PORT 3000
 
 
-CMD ["BACKEND_URL=" + ${BACKEND_URL}, "node", "server.js"]
+CMD ["BACKEND_URL=${BACKEND_URL}", "node", "server.js"]
