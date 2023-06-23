@@ -50,10 +50,16 @@ ARG BACKEND_URL
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 vite
 
-COPY --from=builder /app/dist/ ./
+COPY --from=builder /app/dist/ ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/server.js ./server.mjs
+
+RUN chown -R vite:nodejs /app
 USER vite
+
 EXPOSE 3000
 ENV PORT 3000
 
+ENV BACKEND_URL $BACKEND_URL
 
-CMD ["BACKEND_URL=${BACKEND_URL} node", "server.js"]
+CMD ["node", "server.mjs"]

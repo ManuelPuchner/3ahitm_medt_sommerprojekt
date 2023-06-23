@@ -16,6 +16,9 @@ spec:
       containers:
         - name: dreiahitm-medt-frontend
           image: ghcr.io/manuelpuchner/3ahitm-medt-frontend:latest
+          env:
+            - name: BACKEND_URL
+              value: http://dreiahitm-medt:80/api
           ports:
             - containerPort: 3000
 ---
