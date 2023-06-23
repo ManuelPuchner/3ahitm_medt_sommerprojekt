@@ -37,7 +37,7 @@ jobs:
           mkdir ./temp
           cp -r ./dist/. ./temp
           rm -r ./dist/
-          mkdir ./dist/public/
+          mkdir -r ./dist/public/
           cp -r ./temp ./dist/public/
           cp server.js ./dist/
           rm -rf ./node_modules/
