@@ -49,6 +49,7 @@ jobs:
             dist
           retention-days: 7
   docker-push:
+    needs: frontend-build
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: 3ahitm-medt-frontend
