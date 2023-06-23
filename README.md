@@ -75,3 +75,4 @@ $ npm/pnpm run start
 ### Sprinz 7 **(Endabgabe)**
 - Posten von Wichtigen Informationen
   - Nur Lehrer können wichtige Informationen posten
+
