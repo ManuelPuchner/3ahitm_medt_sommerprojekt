@@ -21,7 +21,7 @@ function Post({ post, refreshPosts }: PostProps) {
   const handleLike = async () => {
     const postId = post.id.toString();
 
-    const response = await fetch(`/api/post/like/${postId}`, {
+    const response = await fetch(`/m.puchner/htlife/api/post/like/${postId}`, {
       method: "PUT"
     });
 
@@ -39,12 +39,9 @@ function Post({ post, refreshPosts }: PostProps) {
   const handleDeletePost = async () => {
     const postId = post.id.toString();
 
-    const response = await fetch(
-      `/api/post/${postId}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const response = await fetch(`/m.puchner/htlife/api/post/${postId}`, {
+      method: "DELETE",
+    });
 
     const data = await response.json();
 

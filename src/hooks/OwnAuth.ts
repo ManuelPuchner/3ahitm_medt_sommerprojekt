@@ -17,7 +17,7 @@ export function useAuth() {
 
   const isTeacher = async (): Promise<boolean> => {
     if (isLoggedIn) {
-      const res = await fetch(`/api/user/getBy/?by=session`);
+      const res = await fetch(`/m.puchner/htlife/api/user/getBy/?by=session`);
       const data = await res.json();
       if (data.success) {
         return data.data.userType === "teacher";
@@ -32,7 +32,7 @@ export function useAuth() {
       password: password,
     };
 
-    const response = await fetch(`/api/auth/login/`, {
+    const response = await fetch(`/m.puchner/htlife/api/auth/login/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export function useAuth() {
       password: password,
     };
 
-    const response = await fetch(`/api/auth/register/`, {
+    const response = await fetch(`/m.puchner/htlife/api/auth/register/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

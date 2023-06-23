@@ -46,7 +46,7 @@ function CreatePost({ open, setOpen, refresh, onClose }: CreatePostProps) {
     console.log(body);
     
 
-    const response = await fetch("/api/post/", {
+    const response = await fetch("/m.puchner/htlife/api/post/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ function CreatePost({ open, setOpen, refresh, onClose }: CreatePostProps) {
     const formData = new FormData();
     formData.append("fileToUpload", e.target.files[0]);
 
-    const res = await fetch("/api/image/", {
+    const res = await fetch("/m.puchner/htlife/api/image/", {
       method: "POST",
       body: formData,
     });

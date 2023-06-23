@@ -27,7 +27,7 @@ function Account() {
     }
 
     const response = await fetch(
-      "/api/user/getBy/?" + searchParams.toString()
+      "/m.puchner/htlife/api/user/getBy/?" + searchParams.toString()
     );
     const data = await response.json();
 

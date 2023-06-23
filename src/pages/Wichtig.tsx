@@ -24,7 +24,9 @@ function Wichtig() {
     params.append("length", "10");
 
     const response = await fetch(
-      `/api/post/important/${params.toString().length > 0 ? `?${params.toString()}` : ""}`
+      `/m.puchner/htlife/api/post/important/${
+        params.toString().length > 0 ? `?${params.toString()}` : ""
+      }`
     );
 
     const data = await response.json();
@@ -44,7 +46,7 @@ function Wichtig() {
     params.append("length", "10");
 
     const response = await fetch(
-      `/api/post/index.php${
+      `/m.puchner/htlife/api/post/index.php${
         params.toString().length > 0 ? `?${params.toString()}` : ""
       }`
     );

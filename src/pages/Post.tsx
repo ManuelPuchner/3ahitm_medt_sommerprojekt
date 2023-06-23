@@ -58,9 +58,7 @@ function Post() {
       return;
     }
 
-    const response = await fetch(
-      `/api/post/${postId}`
-    );
+    const response = await fetch(`/m.puchner/htlife/api/post/${postId}`);
     const data = await response.json();
 
     if (data.success === true) {
@@ -81,7 +79,7 @@ function Post() {
 
     const postBody = Object.fromEntries(formData);
 
-    const response = await fetch("/api/comment/", {
+    const response = await fetch("/m.puchner/htlife/api/comment/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

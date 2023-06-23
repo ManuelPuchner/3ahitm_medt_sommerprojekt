@@ -42,7 +42,7 @@ function Home() {
     params.append("length", "10");
 
     const response = await fetch(
-      `/api/post/${
+      `/m.puchner/htlife/api/post/${
         params.toString().length > 0 ? `?${params.toString()}` : ""
       }`
     );
@@ -64,7 +64,7 @@ function Home() {
     params.append("length", "10");
 
     const response = await fetch(
-      `/api/post/index.php${
+      `/m.puchner/htlife/api/post/index.php${
         params.toString().length > 0 ? `?${params.toString()}` : ""
       }`
     );
