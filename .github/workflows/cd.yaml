@@ -34,6 +34,7 @@ jobs:
         run: |
           pnpm install --frozen-lockfile
           pnpm build
+          mkdir ./dist/public/
           mv ./dist/* ./dist/public/
           cp server.js ./dist/
           rm -rf ./node_modules/
