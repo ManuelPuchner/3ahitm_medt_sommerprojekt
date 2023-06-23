@@ -17,7 +17,7 @@ import Post from "./pages/Post";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/m.puchner/htlife">
       <CookiesProvider>
         <Layout>
           <Routes>
