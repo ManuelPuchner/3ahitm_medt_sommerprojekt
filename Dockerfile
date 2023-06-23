@@ -23,8 +23,6 @@ RUN \
 
 FROM --platform=linux/amd64 node:16-alpine AS builder
 
-ARG BACKEND_URL
-
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -46,6 +44,7 @@ FROM --platform=linux/amd64 node:16-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
+ARG BACKEND_URL
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN addgroup --system --gid 1001 nodejs
@@ -57,4 +56,4 @@ EXPOSE 3000
 ENV PORT 3000
 
 
-CMD ["BACKEND_URL=" + BACKEND_URL, "node", "server.js"]
+CMD ["BACKEND_URL=" + ${BACKEND_URL}, "node", "server.js"]
