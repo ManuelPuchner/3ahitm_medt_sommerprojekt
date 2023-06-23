@@ -34,8 +34,9 @@ jobs:
         run: |
           pnpm install --frozen-lockfile
           pnpm build
-          mkdir ./dist/public/
-          mv ./dist/* ./dist/public/
+          cp -r ./dist/. ./temp
+          rm -r ./dist/
+          cp -r ./temp ./dist/public/
           cp server.js ./dist/
           rm -rf ./node_modules/
       - name: push push artifact
