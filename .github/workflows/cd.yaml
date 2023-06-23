@@ -1,0 +1,76 @@
+name: frontend
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  frontend-build:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: 3ahitm-medt-frontend
+      BACKEND_URL: ${{ secrets.BACKEND_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.0.1
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      - name: install and build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+          mv ./dist/* ./dist/public/
+          cp server.js ./dist/
+          rm -rf ./node_modules/
+      - name: push push artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: |
+            dist
+          retention-days: 7
+  docker-push:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: 3ahitm-medt-frontend
+      BACKEND_URL: ${{ secrets.BACKEND_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download frontend build       # Download the above uploaded artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+      - name: Login to Github Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build image
+        run: docker build . --tag $IMAGE_NAME --build-arg "DB_HOST=${{ secrets.DB_HOST }}" --build-arg "DB_USER=${{ secrets.DB_USER }}" --build-arg "DB_PASS=${{ secrets.DB_PASS }}" --build-arg "DB_NAME=${{ secrets.DB_NAME }}" --build-arg "DB_PORT=${{ secrets.DB_PORT }}" --build-arg "SERVER_URL=${{ secrets.SERVER_URL }}" \
+      - name: Push image
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          VERSION=latest
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
+

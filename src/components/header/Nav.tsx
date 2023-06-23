@@ -12,7 +12,7 @@ const navElements = [
   { href: "/", text: "Home", showWhen: ShowWhen.ALWAYS },
   { href: "/login", text: "Login", showWhen: ShowWhen.LOGGED_OUT },
   { href: "/account/me", text: "Mein Account", showWhen: ShowWhen.LOGGED_IN },
-  { href: "/howto", text: "HowTo", showWhen: ShowWhen.ALWAYS },
+  // { href: "/howto", text: "HowTo", showWhen: ShowWhen.ALWAYS },
   { href: "/wichtig", text: "Wichtig", showWhen: ShowWhen.ALWAYS },
 ];
 
