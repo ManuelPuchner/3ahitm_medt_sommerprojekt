@@ -1,8 +1,6 @@
 import express from "express";
 import { createServer as createViteServer } from "vite";
 
-const backendUrl = process.argv[2];
-
 async function createServer() {
   const app = express();
 
