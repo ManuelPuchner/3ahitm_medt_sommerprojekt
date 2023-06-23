@@ -6,7 +6,7 @@ const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8080/api/";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "./m.puchner/htlife/",
+  base: "/m.puchner/htlife/",
   server: {
     proxy: {
       "/api": {
