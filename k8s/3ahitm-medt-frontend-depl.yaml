@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dreiahitm-medt
+  name: dreiahitm-medt-frontend
   namespace: student-m-puchner
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dreiahitm-medt
+      app: dreiahitm-medt-frontend
   template:
     metadata:
       labels:
-        app: dreiahitm-medt
+        app: dreiahitm-medt-frontend
     spec:
       containers:
-        - name: dreiahitm-medt
+        - name: dreiahitm-medt-frontend
           image: ghcr.io/manuelpuchner/3ahitm-medt-frontend:latest
           ports:
             - containerPort: 3000
