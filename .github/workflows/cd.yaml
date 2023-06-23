@@ -61,10 +61,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-      - name: test
-        run: |
-          pwd
-          ls -a
       - name: Login to Github Container Registry
         uses: docker/login-action@v2
         with:

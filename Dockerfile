@@ -38,6 +38,8 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
+RUN pwd && ls -la
+
 ##### RUNNER
 
 FROM --platform=linux/amd64 node:16-alpine AS runner
